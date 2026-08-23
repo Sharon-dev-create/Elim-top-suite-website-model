@@ -4,6 +4,8 @@ import { rooms, getRoomById, formatNaira } from "../data/rooms";
 import { useBookings } from "../context/BookingContext";
 import { sendBookingEmail, isEmailConfigured } from "../lib/emailjs";
 
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "2340000000000";
+
 function nightsBetween(checkIn, checkOut) {
   if (!checkIn || !checkOut) return 0;
   const a = new Date(checkIn);
@@ -35,6 +37,15 @@ export default function Booking() {
   const room = getRoomById(form.roomId) || rooms[0];
   const nights = nightsBetween(form.checkIn, form.checkOut);
   const total = nights * room.price;
+  const whatsappMessage = [
+    "Hello Elim Top Suites, I'd like to check availability.",
+    `Room: ${room.name}`,
+    `Check-in: ${form.checkIn || "Not selected"}`,
+    `Check-out: ${form.checkOut || "Not selected"}`,
+    `Guests: ${form.guests}`,
+    `Estimated total: ${formatNaira(total)}`,
+  ].join("\n");
+  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const today = useMemo(() => new Date().toISOString().split("T")[0], []);
 
@@ -282,7 +293,7 @@ export default function Booking() {
           />
         </div>
 
-        <div className="border-t border-surface-variant pt-6 flex items-center justify-between">
+        <div className="border-t border-surface-variant pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
           <div>
             <p className="font-body text-label-sm uppercase tracking-wider text-on-surface-variant">
               Estimated total{nights > 0 ? ` · ${nights} night${nights > 1 ? "s" : ""}` : ""}
@@ -291,13 +302,26 @@ export default function Booking() {
               {formatNaira(total)}
             </p>
           </div>
-          <button
-            type="submit"
-            disabled={status === "submitting"}
-            className="px-8 py-4 bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded shadow-sm disabled:opacity-60"
-          >
-            {status === "submitting" ? "Sending…" : "Request Booking"}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-4 border border-[#25D366] text-[#168c45] hover:bg-[#25D366] hover:text-white transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded"
+            >
+              <span className="material-symbols-outlined text-xl" aria-hidden="true">
+                chat
+              </span>
+              WhatsApp Us
+            </a>
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="px-8 py-4 bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded shadow-sm disabled:opacity-60"
+            >
+              {status === "submitting" ? "Sending…" : "Request Booking"}
+            </button>
+          </div>
         </div>
       </form>
     </section>
