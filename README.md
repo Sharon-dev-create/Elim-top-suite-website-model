@@ -45,6 +45,14 @@ notes that email isn't configured yet.
    IDs, and your Public Key (Account → API Keys)
 6. Restart `npm run dev`
 
+### WhatsApp bookings
+
+Set `VITE_WHATSAPP_NUMBER` to the property's WhatsApp number in international
+format without the leading `+` (for example, `2348012345678`). The booking page
+uses it to open WhatsApp with the selected room, dates, guests, and estimated
+total pre-filled. Until it is set, the link uses the placeholder contact number
+shown in the footer.
+
 ## Project structure
 
 ```
