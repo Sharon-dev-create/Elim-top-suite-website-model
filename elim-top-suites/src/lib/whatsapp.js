@@ -1,6 +1,6 @@
 // Replace with the property's real WhatsApp-enabled number, in international
 // format with no "+", spaces, or leading zeros (Nigeria country code 234).
-export const WHATSAPP_NUMBER = "2340000000000";
+export const WHATSAPP_NUMBER = "2349138122704";
 
 export function buildWhatsAppLink(message) {
   const text = encodeURIComponent(message);
