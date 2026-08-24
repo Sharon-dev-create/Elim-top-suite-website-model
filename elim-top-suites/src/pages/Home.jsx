@@ -17,14 +17,14 @@ export default function Home() {
             className="w-full h-full object-cover object-center"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtOWIkIi-VuUWSqX7cGKAaljDEYlkOpFDHDT4QwpE8cPsdQD79gdRhCmUY4HyVIBShV7zbH08S4fJ6LhAKN_2jOuRAfWIm15yFVFjkZJScqKK_KFJ_aI45rPnWBbGb34vdL2GULfxUtNnShzgS8vT4HDGwN-hXMxu004eUdWfc9d9fxCZTK52G1PYOMps-bUD82pp1Gc8MWORVEshLnTw9Rks7EQVBw9fjFwEZHHJ-6wuoPey_JYlO66kFAB2I2X3BOg"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         </div>
 
         <div className="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto mt-20">
-          <h1 className="font-display text-display-lg-mobile md:text-display-lg text-on-primary mb-6 drop-shadow-md">
+          <h1 className="font-display text-display-lg-mobile md:text-display-lg text-white mb-6 drop-shadow-md">
             Stay Well. Live Comfortably.
           </h1>
-          <p className="font-body text-body-lg text-on-primary/90 mb-10 max-w-2xl mx-auto font-light">
+          <p className="font-body text-body-lg text-white/90 mb-10 max-w-2xl mx-auto font-light">
             Experience comfortable accommodation, thoughtful amenities and warm hospitality in the
             heart of Rayfield, Jos.
           </p>
@@ -171,12 +171,12 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTdFscEh_AnzFDpT1XwVTaSlhRzAz0JTxHKDOZ65R2c-n4PyPTUAjoNaTM11JmKBQY_Q_dMnQ7w8ZYqeXEGE6eJHBwdoTaQXlaZrcCDgOGOpLF3kDrEEy74JrRb5QVsAwHOVjvu5yB5cvEoqY8BIMwyvzIg0ksSHUtTlY9ahDNHCjx0eelsG8nx2JT4FNvT_c3t7w-XLnVr3nuQmpJh6WmlfjglC24WnSX80jj4TEras7g4nODOYjCwAaftds-k-7E3g"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-              <h3 className="font-display text-headline-md-mobile text-on-primary mb-2 flex items-center gap-2">
+              <h3 className="font-display text-headline-md-mobile text-white mb-2 flex items-center gap-2">
                 <span className="material-symbols-outlined">pool</span> Swimming Pool
               </h3>
-              <p className="font-body text-body-md text-on-primary/90 hidden md:block">
+              <p className="font-body text-body-md text-white/90 hidden md:block">
                 Relax and unwind in our pristine outdoor pool area, perfect for a refreshing dip
                 or lounging in the sun.
               </p>
