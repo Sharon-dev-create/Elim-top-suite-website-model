@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --c-surface: 251 249 244;
+  --c-surface-variant: 228 226 221;
+  --c-surface-container: 240 238 233;
+  --c-surface-container-low: 245 243 238;
+  --c-surface-container-high: 234 232 227;
+  --c-surface-container-highest: 228 226 221;
+  --c-on-surface: 27 28 25;
+  --c-on-surface-variant: 68 71 72;
+  --c-primary: 23 24 24;
+  --c-on-primary: 255 255 255;
+  --c-primary-container: 44 44 44;
+  --c-secondary: 115 90 58;
+  --c-on-secondary: 255 255 255;
+  --c-outline-variant: 196 199 199;
+  --c-error: 186 26 26;
+}
+
+.dark {
+  --c-surface: 28 27 25;
+  --c-surface-variant: 58 55 51;
+  --c-surface-container: 35 34 32;
+  --c-surface-container-low: 27 26 24;
+  --c-surface-container-high: 44 43 40;
+  --c-surface-container-highest: 55 53 47;
+  --c-on-surface: 233 231 225;
+  --c-on-surface-variant: 200 197 189;
+  --c-primary: 230 227 220;
+  --c-on-primary: 28 27 25;
+  --c-primary-container: 207 204 196;
+  --c-secondary: 226 193 155;
+  --c-on-secondary: 61 46 26;
+  --c-outline-variant: 77 74 68;
+  --c-error: 255 180 171;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--c-surface));
+  color: rgb(var(--c-on-surface));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

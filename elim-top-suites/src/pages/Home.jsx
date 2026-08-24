@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { rooms, formatNaira } from "../data/rooms";
 import RoomCard from "../components/RoomCard";
+import Reveal from "../components/Reveal";
 
 const featured = rooms.find((r) => r.featured);
 const standard = rooms.filter((r) => !r.featured);
@@ -74,7 +75,7 @@ export default function Home() {
 
       {/* About */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="about">
-        <div className="max-w-3xl mx-auto text-center">
+        <Reveal className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-headline-md-mobile md:text-headline-md text-primary mb-8">
             About Elim Top Suites
           </h2>
@@ -84,23 +85,23 @@ export default function Home() {
             appointed rooms and suites to dining, recreation and essential guest services, we
             provide a welcoming environment where guests can relax, connect and enjoy their stay.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       {/* Rooms */}
       <section className="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop" id="rooms">
         <div className="max-w-container-max mx-auto">
-          <div className="text-center mb-16">
+          <Reveal className="text-center mb-16">
             <h2 className="font-display text-headline-md-mobile md:text-headline-md text-primary mb-4">
               Find Your Perfect Stay
             </h2>
             <p className="font-body text-body-md text-on-surface-variant max-w-2xl mx-auto">
               *Rates are starting prices per night and may change.
             </p>
-          </div>
+          </Reveal>
 
           {featured && (
-            <div className="mb-12 bg-surface rounded-lg overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-transform hover:-translate-y-1 duration-300">
+            <Reveal className="mb-12 bg-surface rounded-lg overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-transform hover:-translate-y-1 duration-300">
               <div className="grid grid-cols-1 md:grid-cols-2">
                 <div className="h-64 md:h-auto relative">
                   <img
@@ -140,12 +141,14 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-            {standard.map((room) => (
-              <RoomCard key={room.id} room={room} />
+            {standard.map((room, i) => (
+              <Reveal key={room.id} delay={i * 80}>
+                <RoomCard room={room} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -153,16 +156,16 @@ export default function Home() {
 
       {/* Experience */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="experience">
-        <div className="mb-12">
+        <Reveal className="mb-12">
           <h2 className="font-display text-headline-md-mobile md:text-headline-md text-primary mb-4">
             The Experience
           </h2>
           <p className="font-body text-body-md text-on-surface-variant max-w-xl">
             Amenities designed to make your stay effortless and enjoyable.
           </p>
-        </div>
+        </Reveal>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px]">
-          <div className="md:col-span-2 md:row-span-2 rounded-xl overflow-hidden relative group">
+          <Reveal className="md:col-span-2 md:row-span-2 rounded-xl overflow-hidden relative group">
             <img
               alt="Swimming Pool"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -178,16 +181,17 @@ export default function Home() {
                 or lounging in the sun.
               </p>
             </div>
-          </div>
+          </Reveal>
 
           {[
             { icon: "restaurant", title: "Restaurant", text: "Savor delicious local and continental dishes prepared by our expert chefs in a comfortable dining setting." },
             { icon: "bakery_dining", title: "Complimentary Breakfast", text: "Start your day right with our inclusive breakfast options featuring fresh, quality ingredients." },
             { icon: "fitness_center", title: "Fitness", text: "Maintain your workout routine in our equipped fitness center during your stay." },
             { icon: "local_parking", title: "Free Parking", text: "Secure, on-site parking available at no extra cost for all our registered guests." },
-          ].map((a) => (
-            <div
+          ].map((a, i) => (
+            <Reveal
               key={a.title}
+              delay={i * 80}
               className="bg-surface-container rounded-xl p-6 flex flex-col justify-between border border-surface-variant hover:border-outline-variant transition-colors group"
             >
               <div className="text-secondary bg-surface w-12 h-12 rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
@@ -197,10 +201,10 @@ export default function Home() {
                 <h3 className="font-body text-body-lg text-primary font-semibold mb-2">{a.title}</h3>
                 <p className="font-body text-body-md text-on-surface-variant line-clamp-3">{a.text}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
 
-          <div className="md:col-span-2 bg-surface-container rounded-xl p-6 flex flex-col justify-center relative overflow-hidden border border-surface-variant group">
+          <Reveal className="md:col-span-2 bg-surface-container rounded-xl p-6 flex flex-col justify-center relative overflow-hidden border border-surface-variant group">
             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2">
@@ -220,13 +224,13 @@ export default function Home() {
               </a>
             </div>
             <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-colors duration-500" />
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Events CTA */}
       <section className="py-section-gap bg-primary text-on-primary" id="events">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+        <Reveal className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
           <h2 className="font-display text-display-lg-mobile md:text-display-lg mb-6">
             Celebrate. Connect. Gather.
           </h2>
@@ -240,57 +244,56 @@ export default function Home() {
           >
             Enquire About Events
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       {/* Gallery */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="gallery">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <h2 className="font-display text-headline-md-mobile md:text-headline-md text-primary mb-4">
             Gallery
           </h2>
           <p className="font-body text-body-md text-on-surface-variant">
             A glimpse into Elim Top Suites.
           </p>
-        </div>
+        </Reveal>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
-          <div className="col-span-2 row-span-2 aspect-square relative rounded-lg overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPoqTvViYVsWsWfYcmR0whHf-_Dql2DMr_1Qt5RvG7P86CrMaCW1NbQzVB9BxwGKHwM7M7do4T19MlDf9i0s3xfv_bimvOxt7ZOZXPWBtxM74kufpZ4TzGQpJf_RNTyb_axzwOxC0nFJ28kuHZShm_UdAXZUSeFbaN7u4fqs9kyQTXhOpazR7NBwp8BLdxsLz_jW5akW7RcElZj6uan0gmcmnYsatkj-jvQ2N6c6im0iciUo6wNNPHe9KVLPA7btu4Kw')" }}
-            />
-          </div>
-          <div className="aspect-square relative rounded-lg overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzWtaV6wEStFCtGCcdy5fVE5mqQGGfxTErqf8PDFUbvZb1Ntqa860Pjfmn_48mHhOUZsg3KU2N-jKX4L09is8sFNcaw43nqa6pzBO-N8oeT2A2OWry9tnQ43UyJ74VMEr416bzWnUFKTCYp9hMImTURTguCau8ShUoMZjZXP3cR0CYO7Ed9Kd2jmOYP2FeXUQd8P3mbh2a1mNXxjpnKwBvwaLWZumuER6xcaQQmuUi9HDzLcRV-Hm_EHHqj6cPOM25Pg')" }}
-            />
-          </div>
-          <div className="aspect-square relative rounded-lg overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB75vzIszAyhQ-doy5hY2QkYLzZ49t8TnxTV0_fceagl74QkoWEnr2bj6PKtC2a2CwX4nOetJQX6CYzSli5ITJkTwabpOQpw7yq6CWX3UEmq1rNdQ2_R86MJ0JyNtyFm_LX_z8aB5tFirMe-lNywElKTvzpDkJSVIZC-iZqQcQEDJ8GsZAs7jbi5LGzTWGRWukQmkiCxEfnyDSkWngJ3ftRnfdZGQQt-l3WLGdqIKc6Ri11hke0fTQv')" }}
-            />
-          </div>
-          <div className="aspect-square relative rounded-lg overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1AQ8tkt5_brDC3uCErV9Scag4f74Ah4xSYOhA1_zlSlREbuJ_J7-EP6BxYbritcxfXmumad5ZWV9156GEz1dNAZZCjkccmSs_eLNLhESVgCK7uJuM2EETBb4RQ9g2Mcx_4DmT5-v6U51NHBuAqEHRDRvFK4aAizOKQabpJR355csBR8ToLGvFQ8iM61x1VtERxtQjzlowMacJW_LUKufptyig68jKR5OePkbPPfHLxl_gNK95Ug0u')" }}
-            />
-          </div>
-          <div className="aspect-square relative rounded-lg overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
-              style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZvhA5vBW0V0yv9Vh3c4PvRyHhWJtG6E8JGULmurbd2eLBJvonaLSCAo_gBCj-VHUBagvyNsLD8VT6SjnRlDutFoUvYpN1WdxMySIaWghsyQ7WlKqQiU0L1BNZzcGwsDi9XXMBwnfOSNvchCh5eXELaM1iOWl-TNP5EVkhHoVsOjxiwbarlv3QT8HJVDNusB9X_VX0Mt9CNO9-8VBrYOw9Ku0MqAoJTVGJ1gLCVwAYsfZhq8AtY0EY')" }}
-            />
-          </div>
+          {[
+            {
+              url: "https://lh3.googleusercontent.com/aida-public/AB6AXuAPoqTvViYVsWsWfYcmR0whHf-_Dql2DMr_1Qt5RvG7P86CrMaCW1NbQzVB9BxwGKHwM7M7do4T19MlDf9i0s3xfv_bimvOxt7ZOZXPWBtxM74kufpZ4TzGQpJf_RNTyb_axzwOxC0nFJ28kuHZShm_UdAXZUSeFbaN7u4fqs9kyQTXhOpazR7NBwp8BLdxsLz_jW5akW7RcElZj6uan0gmcmnYsatkj-jvQ2N6c6im0iciUo6wNNPHe9KVLPA7btu4Kw",
+              className: "col-span-2 row-span-2",
+            },
+            {
+              url: "https://lh3.googleusercontent.com/aida-public/AB6AXuDzWtaV6wEStFCtGCcdy5fVE5mqQGGfxTErqf8PDFUbvZb1Ntqa860Pjfmn_48mHhOUZsg3KU2N-jKX4L09is8sFNcaw43nqa6pzBO-N8oeT2A2OWry9tnQ43UyJ74VMEr416bzWnUFKTCYp9hMImTURTguCau8ShUoMZjZXP3cR0CYO7Ed9Kd2jmOYP2FeXUQd8P3mbh2a1mNXxjpnKwBvwaLWZumuER6xcaQQmuUi9HDzLcRV-Hm_EHHqj6cPOM25Pg",
+            },
+            {
+              url: "https://lh3.googleusercontent.com/aida-public/AB6AXuB75vzIszAyhQ-doy5hY2QkYLzZ49t8TnxTV0_fceagl74QkoWEnr2bj6PKtC2a2CwX4nOetJQX6CYzSli5ITJkTwabpOQpw7yq6CWX3UEmq1rNdQ2_R86MJ0JyNtyFm_LX_z8aB5tFirMe-lNywElKTvzpDkJSVIZC-iZqQcQEDJ8GsZAs7jbi5LGzTWGRWukQmkiCxEfnyDSkWngJ3ftRnfdZGQQt-l3WLGdqIKc6Ri11hke0fTQv",
+            },
+            {
+              url: "https://lh3.googleusercontent.com/aida-public/AB6AXuD1AQ8tkt5_brDC3uCErV9Scag4f74Ah4xSYOhA1_zlSlREbuJ_J7-EP6BxYbritcxfXmumad5ZWV9156GEz1dNAZZCjkccmSs_eLNLhESVgCK7uJuM2EETBb4RQ9g2Mcx_4DmT5-v6U51NHBuAqEHRDRvFK4aAizOKQabpJR355csBR8ToLGvFQ8iM61x1VtERxtQjzlowMacJW_LUKufptyig68jKR5OePkbPPfHLxl_gNK95Ug0u",
+            },
+            {
+              url: "https://lh3.googleusercontent.com/aida-public/AB6AXuCZvhA5vBW0V0yv9Vh3c4PvRyHhWJtG6E8JGULmurbd2eLBJvonaLSCAo_gBCj-VHUBagvyNsLD8VT6SjnRlDutFoUvYpN1WdxMySIaWghsyQ7WlKqQiU0L1BNZzcGwsDi9XXMBwnfOSNvchCh5eXELaM1iOWl-TNP5EVkhHoVsOjxiwbarlv3QT8HJVDNusB9X_VX0Mt9CNO9-8VBrYOw9Ku0MqAoJTVGJ1gLCVwAYsfZhq8AtY0EY",
+            },
+          ].map((img, i) => (
+            <Reveal
+              key={img.url}
+              delay={i * 70}
+              className={`aspect-square relative rounded-lg overflow-hidden ${img.className || ""}`}
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-105"
+                style={{ backgroundImage: `url('${img.url}')` }}
+              />
+            </Reveal>
+          ))}
         </div>
       </section>
 
       {/* Final CTA + Location */}
       <section className="py-section-gap bg-surface-container-low px-margin-mobile md:px-margin-desktop border-t border-surface-variant">
         <div className="max-w-container-max mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="md:w-1/2 text-center md:text-left">
+          <Reveal direction="left" className="md:w-1/2 text-center md:text-left">
             <h2 className="font-display text-headline-md-mobile md:text-headline-md text-primary mb-6">
               Ready for a comfortable stay?
             </h2>
@@ -300,8 +303,12 @@ export default function Home() {
             >
               Book Your Stay
             </Link>
-          </div>
-          <div className="md:w-1/2 bg-surface p-8 rounded-xl border border-surface-variant shadow-sm w-full">
+          </Reveal>
+          <Reveal
+            direction="right"
+            delay={100}
+            className="md:w-1/2 bg-surface p-8 rounded-xl border border-surface-variant shadow-sm w-full"
+          >
             <h3 className="font-body text-body-lg text-primary font-semibold mb-4 flex items-center gap-2 justify-center md:justify-start">
               <span className="material-symbols-outlined text-secondary">location_on</span> Location
             </h3>
@@ -316,7 +323,7 @@ export default function Home() {
                 src="https://www.google.com/maps?q=Rayfield,Jos,Plateau,Nigeria&output=embed"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

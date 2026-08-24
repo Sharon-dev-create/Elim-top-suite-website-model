@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const links = [
   { to: "/#rooms", label: "Rooms" },
@@ -12,6 +13,7 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -45,7 +47,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            aria-label="Toggle dark mode"
+            onClick={toggleTheme}
+            className="text-on-surface-variant hover:text-primary transition-colors duration-200 p-2 rounded"
+          >
+            <span className="material-symbols-outlined text-xl">
+              {theme === "dark" ? "light_mode" : "dark_mode"}
+            </span>
+          </button>
           <Link
             to="/booking"
             className="inline-flex items-center justify-center px-6 py-3 bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 font-body text-label-sm rounded uppercase tracking-wider"
@@ -54,15 +65,26 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <button
-          aria-label="Toggle Menu"
-          className="md:hidden text-primary p-2"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="material-symbols-outlined text-3xl">
-            {open ? "close" : "menu"}
-          </span>
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <button
+            aria-label="Toggle dark mode"
+            onClick={toggleTheme}
+            className="text-on-surface-variant p-2"
+          >
+            <span className="material-symbols-outlined text-2xl">
+              {theme === "dark" ? "light_mode" : "dark_mode"}
+            </span>
+          </button>
+          <button
+            aria-label="Toggle Menu"
+            className="text-primary p-2"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="material-symbols-outlined text-3xl">
+              {open ? "close" : "menu"}
+            </span>
+          </button>
+        </div>
       </div>
 
       {open && (

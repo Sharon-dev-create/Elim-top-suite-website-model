@@ -3,8 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { rooms, getRoomById, formatNaira } from "../data/rooms";
 import { useBookings } from "../context/BookingContext";
 import { sendBookingEmail, isEmailConfigured } from "../lib/emailjs";
-
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "2340000000000";
+import { buildWhatsAppLink, buildBookingWhatsAppMessage } from "../lib/whatsapp";
 
 function nightsBetween(checkIn, checkOut) {
   if (!checkIn || !checkOut) return 0;
@@ -37,15 +36,6 @@ export default function Booking() {
   const room = getRoomById(form.roomId) || rooms[0];
   const nights = nightsBetween(form.checkIn, form.checkOut);
   const total = nights * room.price;
-  const whatsappMessage = [
-    "Hello Elim Top Suites, I'd like to check availability.",
-    `Room: ${room.name}`,
-    `Check-in: ${form.checkIn || "Not selected"}`,
-    `Check-out: ${form.checkOut || "Not selected"}`,
-    `Guests: ${form.guests}`,
-    `Estimated total: ${formatNaira(total)}`,
-  ].join("\n");
-  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const today = useMemo(() => new Date().toISOString().split("T")[0], []);
 
@@ -293,7 +283,7 @@ export default function Booking() {
           />
         </div>
 
-        <div className="border-t border-surface-variant pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+        <div className="border-t border-surface-variant pt-6 flex items-center justify-between">
           <div>
             <p className="font-body text-label-sm uppercase tracking-wider text-on-surface-variant">
               Estimated total{nights > 0 ? ` · ${nights} night${nights > 1 ? "s" : ""}` : ""}
@@ -302,27 +292,41 @@ export default function Booking() {
               {formatNaira(total)}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-4 border border-[#25D366] text-[#168c45] hover:bg-[#25D366] hover:text-white transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded"
-            >
-              <span className="material-symbols-outlined text-xl" aria-hidden="true">
-                chat
-              </span>
-              WhatsApp Us
-            </a>
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="px-8 py-4 bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded shadow-sm disabled:opacity-60"
-            >
-              {status === "submitting" ? "Sending…" : "Request Booking"}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={status === "submitting"}
+            className="px-8 py-4 bg-primary text-on-primary hover:bg-primary-container transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded shadow-sm disabled:opacity-60"
+          >
+            {status === "submitting" ? "Sending…" : "Request Booking"}
+          </button>
         </div>
+
+        <div className="flex items-center gap-3 text-on-surface-variant">
+          <div className="flex-1 h-px bg-surface-variant" />
+          <span className="font-body text-label-sm uppercase tracking-wider">or</span>
+          <div className="flex-1 h-px bg-surface-variant" />
+        </div>
+
+        <a
+          href={buildWhatsAppLink(
+            buildBookingWhatsAppMessage({
+              roomName: room.name,
+              checkIn: form.checkIn,
+              checkOut: form.checkOut,
+              guests: form.guests,
+              nights,
+              total: nights > 0 ? formatNaira(total) : null,
+            })
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-[#25D366] text-white hover:bg-[#1ebe57] transition-colors duration-300 font-body text-label-sm uppercase tracking-widest rounded shadow-sm"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.55 1.36 5.1L2 22l5.13-1.44a9.9 9.9 0 0 0 4.91 1.31h.01c5.46 0 9.9-4.45 9.9-9.9C21.96 6.45 17.5 2 12.04 2Zm5.83 14.05c-.24.68-1.4 1.32-1.93 1.36-.5.05-1.02.24-3.43-.72-2.9-1.16-4.77-4.13-4.92-4.32-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.42.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .9 2.15.07.14.12.31.02.5-.1.2-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.77 1.27 1.65 2.06 1.13 1.01 2.09 1.32 2.38 1.47.29.15.46.13.63-.08.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.7.8 1.99.95.29.14.48.22.55.34.07.13.07.72-.17 1.4Z" />
+          </svg>
+          Book via WhatsApp Instead
+        </a>
       </form>
     </section>
   );
